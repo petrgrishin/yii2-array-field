@@ -24,15 +24,22 @@ class ArrayFieldBehaviorTest extends PHPUnit_Framework_TestCase {
         $model = $this
             ->getMockBuilder(\Test::className())
             ->disableOriginalConstructor()
-            ->setMethods(array('setAttribute'))
+            ->setMethods(array('__get', 'setAttribute'))
             ->getMock();
+
+        $model
+            ->expects($this->any())
+            ->method('__get')
+            ->will($this->returnCallback(function ($name) {
+                return '{}';
+            }))->with('attributes');
 
         $model
             ->expects($this->once())
             ->method('setAttribute')
             ->with(array());
 
-        $model->arrayField->setValue('a.b', true);
-        $this->assertTrue($model->arrayField->getValue('a.b', false));
+        $model->getBehavior('arrayField')->setValue('a.b', true);
+        $this->assertTrue($model->getBehavior('arrayField')->getValue('a.b', false));
     }
 }
