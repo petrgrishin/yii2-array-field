@@ -3,26 +3,11 @@
  * @author Petr Grishin <petr.grishin@grishini.ru>
  */
 
-/**
- * @property \PetrGrishin\ArrayField\ArrayFieldBehavior arrayField
- */
-class Test extends \yii\db\ActiveRecord {
-    public $data;
-    public function behaviors() {
-        return [
-            'arrayField' => [
-                'class' => \PetrGrishin\ArrayField\ArrayFieldBehavior::className(),
-                'fieldNameStorage' => 'data',
-            ]
-        ];
-    }
-}
-
 class ArrayFieldBehaviorTest extends PHPUnit_Framework_TestCase {
-    public function testSimple() {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Test $model */
+    public function testSetValue() {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\yii\db\ActiveRecord $model */
         $model = $this
-            ->getMockBuilder(\Test::className())
+            ->getMockBuilder(\yii\db\ActiveRecord::className())
             ->disableOriginalConstructor()
             ->setMethods(array('__get', 'setAttribute'))
             ->getMock();
@@ -37,9 +22,13 @@ class ArrayFieldBehaviorTest extends PHPUnit_Framework_TestCase {
         $model
             ->expects($this->once())
             ->method('setAttribute')
-            ->with(array());
+            ->with('data', '{"a":{"b":true}}');
 
-        $model->getBehavior('arrayField')->setValue('a.b', true);
-        $this->assertTrue($model->getBehavior('arrayField')->getValue('a.b', false));
+        $behavior = new \PetrGrishin\ArrayField\ArrayFieldBehavior();
+        $behavior->owner = $model;
+        $behavior->setFieldNameStorage('data');
+        $behavior->loadArray();
+        $behavior->setValue('a.b', true);
+        $this->assertTrue($behavior->getValue('a.b', false));
     }
 }

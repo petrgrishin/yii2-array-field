@@ -67,7 +67,11 @@ class ArrayFieldBehavior extends Behavior {
         return $this;
     }
 
-    protected function loadArray() {
+    /**
+     * @return $this
+     * TODO: protected
+     */
+    public function loadArray() {
         $data = $this->getData();
         $value = $this->decode($data);
         $this->arrayAccess = ArrayAccess::create($value);
