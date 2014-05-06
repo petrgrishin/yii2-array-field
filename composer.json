@@ -2,7 +2,6 @@
     "name": "petrgrishin/yii2-array-field",
     "description": "Yii2 array field behavior",
     "license": "MIT",
-    "version": "0.1.0",
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
