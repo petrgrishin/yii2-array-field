@@ -31,6 +31,15 @@ class ArrayFieldBehavior extends Behavior {
         return $this;
     }
 
+    public function getArray() {
+        return $this->arrayAccess->getArray();
+    }
+
+    public function setArray(array $data) {
+        $this->arrayAccess->setArray($data);
+        return $this;
+    }
+
     public function getFieldNameStorage() {
         if (!$this->fieldNameStorage) {
             throw new \Exception('Field name storage is empty');
@@ -40,6 +49,11 @@ class ArrayFieldBehavior extends Behavior {
 
     public function setFieldNameStorage($fieldNameStorage) {
         $this->fieldNameStorage = $fieldNameStorage;
+        return $this;
+    }
+
+    public function save() {
+        $this->getModel()->save(false, array($this->getFieldNameStorage()));
         return $this;
     }
 
