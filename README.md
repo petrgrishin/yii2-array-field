@@ -11,7 +11,6 @@ Add a dependency to your project's composer.json:
 ```json
 {
     "require": {
-        "petrgrishin/array-access": "~1.0",
         "petrgrishin/yii2-array-field": "~1.0"
     }
 }
@@ -45,8 +44,8 @@ class Model extends ActiveRecord{
 ```php
 $model = Model::find(1)->one();
 $model->arrayField->setValue('a.b', true);
-$model->arrayField->getValue('a.b');
-$model->arrayField->getArray();
+$value = $model->arrayField->getValue('a.b');
+$array = $model->arrayField->getArray();
 ```
 
 #### Save only array field
