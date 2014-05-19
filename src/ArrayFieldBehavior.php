@@ -6,14 +6,14 @@
 namespace PetrGrishin\ArrayField;
 
 
-use PetrGrishin\ArrayAccess\ArrayAccess;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 
 class ArrayFieldBehavior extends Behavior {
+    /** @var  string */
     protected $fieldNameStorage;
-    /** @var  ArrayAccess */
-    protected $arrayAccess;
+    /** @var  array */
+    private $array;
 
     public function events() {
         return [
@@ -21,22 +21,12 @@ class ArrayFieldBehavior extends Behavior {
         ];
     }
 
-    public function getValue($path, $defaultValue = null) {
-        return $this->arrayAccess->getValue($path, $defaultValue);
-    }
-
-    public function setValue($path, $value) {
-        $this->arrayAccess->setValue($path, $value);
-        $this->saveArray();
-        return $this;
-    }
-
     public function getArray() {
-        return $this->arrayAccess->getArray();
+        return $this->array;
     }
 
     public function setArray(array $data) {
-        $this->arrayAccess->setArray($data);
+        $this->array = $data;
         return $this;
     }
 
@@ -88,12 +78,12 @@ class ArrayFieldBehavior extends Behavior {
     public function loadArray() {
         $data = $this->getData();
         $value = $this->decode($data);
-        $this->arrayAccess = ArrayAccess::create($value);
+        $this->array = $value ?: array();
         return $this;
     }
 
     protected function saveArray() {
-        $value = $this->arrayAccess->getArray();
+        $value = $this->getArray();
         $data = $this->encode($value);
         $this->setData($data);
         return $this;
