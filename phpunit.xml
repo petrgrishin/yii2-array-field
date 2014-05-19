@@ -3,6 +3,7 @@
     <testsuites>
         <testsuite name="ArrayFieldBehavior tests">
             <directory suffix="ArrayFieldBehaviorTest.php">tests/unit</directory>
+            <directory suffix="ArrayAccessFieldBehaviorTest.php">tests/unit</directory>
         </testsuite>
     </testsuites>
     <filter>
