@@ -25,13 +25,13 @@ Model have text attribute `data` for storage array
 namespace app\models;
 
 use yii\db\ActiveRecord;
-use \PetrGrishin\ArrayField\ArrayFieldBehavior;
+use \PetrGrishin\ArrayField\ArrayAccessFieldBehavior;
 
 class Model extends ActiveRecord{
     public function behaviors() {
         return [
             'arrayField' => [
-                'class' => ArrayFieldBehavior::className(),
+                'class' => ArrayAccessFieldBehavior::className(),
                 'fieldNameStorage' => 'data',
             ]
         ];
