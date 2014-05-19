@@ -3,7 +3,7 @@
  * @author Petr Grishin <petr.grishin@grishini.ru>
  */
 
-class ArrayFieldBehaviorTest extends PHPUnit_Framework_TestCase {
+class ArrayAccessFieldBehaviorTest extends PHPUnit_Framework_TestCase {
     public function testSetValue() {
         /** @var \PHPUnit_Framework_MockObject_MockObject|\yii\db\ActiveRecord $model */
         $model = $this
@@ -24,7 +24,7 @@ class ArrayFieldBehaviorTest extends PHPUnit_Framework_TestCase {
             ->method('setAttribute')
             ->with('data', '{"a":{"b":true}}');
 
-        $behavior = new \PetrGrishin\ArrayField\ArrayFieldBehavior();
+        $behavior = new \PetrGrishin\ArrayField\ArrayAccessFieldBehavior();
         $behavior->owner = $model;
         $behavior->setFieldNameStorage('data');
         $behavior->loadArray();
