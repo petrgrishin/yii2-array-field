@@ -27,6 +27,7 @@ class ArrayFieldBehavior extends Behavior {
 
     public function setArray(array $data) {
         $this->array = $data;
+        $this->saveArray();
         return $this;
     }
 

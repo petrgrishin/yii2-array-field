@@ -28,6 +28,7 @@ class ArrayAccessFieldBehavior extends ArrayFieldBehavior {
 
     public function setArray(array $data) {
         $this->arrayAccess->setArray($data);
+        $this->saveArray();
         return $this;
     }
 
