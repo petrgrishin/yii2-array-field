@@ -16,9 +16,9 @@ class ArrayFieldBehavior extends Behavior {
     private $array;
 
     public function events() {
-        return [
+        return array(
             ActiveRecord::EVENT_INIT => 'loadArray'
-        ];
+        );
     }
 
     public function getArray() {
