@@ -15,6 +15,13 @@ class ArrayFieldBehavior extends Behavior {
     /** @var  array */
     private $array;
 
+    /**
+     * @return string
+     */
+    public static function className() {
+        return get_called_class();
+    }
+
     public function events() {
         return array(
             ActiveRecord::EVENT_INIT => 'loadArray'
